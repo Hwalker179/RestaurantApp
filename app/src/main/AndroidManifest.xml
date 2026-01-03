@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
 
-        <!-- Launch Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -22,10 +21,9 @@
             </intent-filter>
         </activity>
 
-        <!-- Other Screens -->
         <activity android:name=".Menu" />
         <activity android:name=".MenuEditor" />
-        <activity android:name=".Reservations" />
+        <activity android:name=".ReservationsActivity" />
         <activity android:name=".Staffhome" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".RegisterActivity" />
