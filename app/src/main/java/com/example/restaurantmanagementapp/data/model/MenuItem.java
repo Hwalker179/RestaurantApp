@@ -11,7 +11,6 @@ public class MenuItem {
         this.price = price;
     }
 
-    // Add a no-argument constructor for Retrofit
     public MenuItem() {}
 
     public int getId() {

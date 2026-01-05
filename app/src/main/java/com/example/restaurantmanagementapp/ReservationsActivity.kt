@@ -20,7 +20,7 @@ class ReservationsActivity : AppCompatActivity() {
 
         logoutButton.setOnClickListener {
             Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show()
-            // Remember to add the full logout logic here later
+
         }
     }
 }

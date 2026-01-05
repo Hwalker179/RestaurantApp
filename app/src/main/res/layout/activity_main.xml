@@ -11,25 +11,27 @@
         android:id="@+id/editTextText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/Login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
     <Button
         android:id="@+id/Login"
@@ -38,6 +40,7 @@
         android:layout_marginTop="24dp"
         android:text="Login"
         android:textColorLink="#FF0101"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
@@ -48,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Register"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/Login"
         app:layout_constraintStart_toStartOf="@+id/Login"
         app:layout_constraintTop_toBottomOf="@+id/Login" />

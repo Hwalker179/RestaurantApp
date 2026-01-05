@@ -27,6 +27,8 @@
         <activity android:name=".Staffhome" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".GuestHomeActivity" />
+        <activity android:name=".StaffHomeActivity" />
 
     </application>
 
