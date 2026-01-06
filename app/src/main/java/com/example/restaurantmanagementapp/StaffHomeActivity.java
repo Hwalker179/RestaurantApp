@@ -21,7 +21,8 @@ public class StaffHomeActivity extends AppCompatActivity {
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Implement Menu functionality
+                Intent intent = new Intent(StaffHomeActivity.this, Menu.class);
+                startActivity(intent);
             }
         });
 

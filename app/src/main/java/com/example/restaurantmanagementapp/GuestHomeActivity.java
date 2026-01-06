@@ -22,7 +22,8 @@ public class GuestHomeActivity extends AppCompatActivity {
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Implement Menu functionality
+                Intent intent = new Intent(GuestHomeActivity.this, Menu.class);
+                startActivity(intent);
             }
         });
 
@@ -37,7 +38,6 @@ public class GuestHomeActivity extends AppCompatActivity {
         btnAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Implement Account Details functionality
             }
         });
 
