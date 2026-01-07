@@ -1,6 +1,8 @@
 package com.example.restaurantmanagementapp;
 
 import android.os.Bundle;
+import android.view.View; // Import the View class
+import android.widget.Button; // Import the Button class
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +22,15 @@ public class MenuEditor extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Button backButton = findViewById(R.id.btnBack);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 }
