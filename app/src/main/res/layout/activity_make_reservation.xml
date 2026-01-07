@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Date (e.g., 2024-12-25)"
+        android:hint="Date (e.g., 01-01-2026)"
         android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/etTime"
         app:layout_constraintEnd_toEndOf="parent"

@@ -20,7 +20,7 @@ public class MakeReservationActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
 
         final EditText nameInput = findViewById(R.id.etName);
-        final EditText numOfPeopleInput = findViewById(R.id.etNumOfPeople); // Added this
+        final EditText numOfPeopleInput = findViewById(R.id.etNumOfPeople);
         final EditText dateInput = findViewById(R.id.etDate);
         final EditText timeInput = findViewById(R.id.etTime);
         Button submitButton = findViewById(R.id.btnSubmit);
@@ -29,7 +29,7 @@ public class MakeReservationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = nameInput.getText().toString().trim();
-                String numOfPeople = numOfPeopleInput.getText().toString().trim(); // Added this
+                String numOfPeople = numOfPeopleInput.getText().toString().trim();
                 String date = dateInput.getText().toString().trim();
                 String time = timeInput.getText().toString().trim();
 
@@ -38,9 +38,15 @@ public class MakeReservationActivity extends AppCompatActivity {
                     return;
                 }
 
-                String reservationDetails = "Booking for " + name + " (" + numOfPeople + " people) on " + date + " at " + time;
+                String guestUsername = sessionManager.getUsername();
+                if (guestUsername == null) {
+                    Toast.makeText(MakeReservationActivity.this, "Error: Not logged in", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                sessionManager.saveReservation(name, date, time);
+                String reservationDetails = guestUsername + "|Booking for " + name + " (" + numOfPeople + " people) on " + date + " at " + time;
+
+                sessionManager.saveReservation(reservationDetails);
 
                 Toast.makeText(MakeReservationActivity.this, "Reservation Made!", Toast.LENGTH_SHORT).show();
                 finish();

@@ -14,9 +14,17 @@ class ReservationsActivity : BaseActivity() {
 
     override val pageTitle: String = "Reservations"
 
+    private lateinit var reservationsListView: ListView
+    private lateinit var emptyMessage: TextView
+    private val fullBookingRecords = ArrayList<String>()
+    private val displayBookings = ArrayList<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservations)
+
+        reservationsListView = findViewById(R.id.lvBookings)
+        emptyMessage = findViewById(R.id.tvNoBookings)
 
         val makeReservationButton: Button = findViewById(R.id.btnMakeReservation)
         val userType = intent.getStringExtra("user_type")
@@ -28,8 +36,6 @@ class ReservationsActivity : BaseActivity() {
                 startActivity(intent)
             }
         }
-
-        loadReservations()
     }
 
     override fun onResume() {
@@ -38,31 +44,46 @@ class ReservationsActivity : BaseActivity() {
     }
 
     private fun loadReservations() {
-        val reservationsListView: ListView = findViewById(R.id.lvBookings)
-        val emptyMessage: TextView = findViewById(R.id.tvNoBookings)
-        val reservation = sessionManager.getReservationDetails()
-        val bookings = ArrayList<String>()
-        if (reservation != null) {
-            bookings.add(reservation)
+        val userType = intent.getStringExtra("user_type")
+        val allReservations = sessionManager.getAllReservations()
+
+        fullBookingRecords.clear()
+        displayBookings.clear()
+
+        if (userType == "staff") {
+            allReservations.forEach { fullRecord ->
+                fullBookingRecords.add(fullRecord)
+                displayBookings.add(fullRecord.substringAfter("|", "Invalid Record"))
+            }
+        } else {
+            val currentGuest = sessionManager.getUsername()
+            allReservations.forEach { fullRecord ->
+                val recordOwner = fullRecord.substringBefore("|", "")
+                if (recordOwner == currentGuest) {
+                    fullBookingRecords.add(fullRecord)
+                    displayBookings.add(fullRecord.substringAfter("|", "Invalid Record"))
+                }
+            }
         }
 
-        if (bookings.isEmpty()) {
+        if (displayBookings.isEmpty()) {
             emptyMessage.visibility = View.VISIBLE
             reservationsListView.visibility = View.GONE
         } else {
             emptyMessage.visibility = View.GONE
             reservationsListView.visibility = View.VISIBLE
-            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, bookings)
+
+            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, displayBookings)
             reservationsListView.adapter = adapter
 
-            val userType = intent.getStringExtra("user_type")
             if (userType == "guest") {
-                reservationsListView.setOnItemClickListener { _, _, _, _ ->
+                reservationsListView.setOnItemClickListener { _, _, position, _ ->
+                    val fullRecordToDelete = fullBookingRecords[position]
                     AlertDialog.Builder(this)
                         .setTitle("Remove Booking")
                         .setMessage("Are you sure you want to remove this booking?")
                         .setPositiveButton("Yes") { _, _ ->
-                            sessionManager.clearReservation()
+                            sessionManager.removeReservation(fullRecordToDelete)
                             Toast.makeText(this, "Booking removed", Toast.LENGTH_SHORT).show()
                             loadReservations()
                         }

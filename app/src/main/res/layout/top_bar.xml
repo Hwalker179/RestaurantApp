@@ -26,6 +26,13 @@
         android:textStyle="bold" />
 
     <Button
+        android:id="@+id/btnAddEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add / Edit"
+        android:visibility="gone" />
+
+    <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

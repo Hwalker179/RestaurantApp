@@ -3,63 +3,62 @@ package com.example.restaurantmanagementapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-
-import androidx.activity.EdgeToEdge;
+import android.widget.ListView;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import java.util.ArrayList;
 
 public class Menu extends AppCompatActivity {
+
+    private SessionManager sessionManager;
+    private ListView menuListView;
+    private ArrayAdapter<String> adapter;
+    private ArrayList<String> menuItemsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        sessionManager = new SessionManager(this);
+
+        Button btnBack = findViewById(R.id.btnBack);
+        Button btnLogout = findViewById(R.id.btnLogout);
+        Button btnAddEdit = findViewById(R.id.btnAddEdit);
+        menuListView = findViewById(R.id.lvMenu);
+
+        btnBack.setOnClickListener(v -> finish());
+        btnLogout.setOnClickListener(v -> {
+            Intent logoutIntent = new Intent(Menu.this, MainActivity.class);
+            logoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(logoutIntent);
         });
 
-
-        Button btnBack = findViewById(R.id.button4);
-        Button btnAddEdit = findViewById(R.id.button9);
-        Button btnLogout = findViewById(R.id.button11);
-
-        Intent intent = getIntent();
-        String userType = intent.getStringExtra("user_type");
-
+        String userType = getIntent().getStringExtra("user_type");
         if (userType != null && userType.equals("staff")) {
             btnAddEdit.setVisibility(View.VISIBLE);
-
-            btnAddEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent editorIntent = new Intent(Menu.this, MenuEditor.class);
-                    startActivity(editorIntent);
-                }
+            btnAddEdit.setOnClickListener(v -> {
+                Intent editorIntent = new Intent(Menu.this, MenuEditor.class);
+                startActivity(editorIntent);
             });
         } else {
             btnAddEdit.setVisibility(View.GONE);
         }
+    }
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadMenuItems();
+    }
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent logoutIntent = new Intent(Menu.this, MainActivity.class);
-                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(logoutIntent);
-            }
-        });
+    private void loadMenuItems() {
+        menuItemsList = new ArrayList<>(sessionManager.getMenuItems());
+
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, menuItemsList);
+
+        menuListView.setAdapter(adapter);
     }
 }
