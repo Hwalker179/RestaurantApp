@@ -22,6 +22,7 @@ public class StaffHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StaffHomeActivity.this, Menu.class);
+                intent.putExtra("user_type", "staff");
                 startActivity(intent);
             }
         });
@@ -30,6 +31,7 @@ public class StaffHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StaffHomeActivity.this, ReservationsActivity.class);
+                intent.putExtra("user_type", "staff");
                 startActivity(intent);
             }
         });

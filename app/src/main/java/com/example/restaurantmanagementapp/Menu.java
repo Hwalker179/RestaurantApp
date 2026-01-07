@@ -24,9 +24,27 @@ public class Menu extends AppCompatActivity {
             return insets;
         });
 
+
         Button btnBack = findViewById(R.id.button4);
         Button btnAddEdit = findViewById(R.id.button9);
         Button btnLogout = findViewById(R.id.button11);
+
+        Intent intent = getIntent();
+        String userType = intent.getStringExtra("user_type");
+
+        if (userType != null && userType.equals("staff")) {
+            btnAddEdit.setVisibility(View.VISIBLE);
+
+            btnAddEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent editorIntent = new Intent(Menu.this, MenuEditor.class);
+                    startActivity(editorIntent);
+                }
+            });
+        } else {
+            btnAddEdit.setVisibility(View.GONE);
+        }
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,19 +53,12 @@ public class Menu extends AppCompatActivity {
             }
         });
 
-        btnAddEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Menu.this, MenuEditor.class);
-                startActivity(intent);
-            }
-        });
-
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Menu.this, MainActivity.class);
-                startActivity(intent);
+                Intent logoutIntent = new Intent(Menu.this, MainActivity.class);
+                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(logoutIntent);
             }
         });
     }

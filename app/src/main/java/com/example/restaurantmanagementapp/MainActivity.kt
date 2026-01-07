@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
                 if (password == SessionManager.STAFF_PASSWORD) {
                     Toast.makeText(this, "Staff login successful!", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, StaffHomeActivity::class.java)
+                    intent.putExtra("user_type", "staff")
+
                     startActivity(intent)
                 } else {
                     Toast.makeText(this, "Invalid password for staff account", Toast.LENGTH_SHORT).show()
@@ -46,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                 sessionManager.saveGuestLogin(username)
                 Toast.makeText(this, "Welcome, $username!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, GuestHomeActivity::class.java)
+                intent.putExtra("user_type", "guest")
                 startActivity(intent)
             }
         }

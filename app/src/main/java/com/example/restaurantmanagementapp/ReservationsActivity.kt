@@ -1,26 +1,31 @@
 package com.example.restaurantmanagementapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 
-class ReservationsActivity : AppCompatActivity() {
+
+class ReservationsActivity : BaseActivity() {
+
+    override val pageTitle: String = "Reservations"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservations)
 
-        val backButton: Button = findViewById(R.id.btnBack)
-        val logoutButton: Button = findViewById(R.id.btnLogout)
+        val makeReservationButton: Button = findViewById(R.id.btnMakeReservation)
+        val userType = intent.getStringExtra("user_type")
 
-        backButton.setOnClickListener {
-            finish()
-        }
+        if (userType == "guest") {
+            makeReservationButton.visibility = View.VISIBLE
 
-        logoutButton.setOnClickListener {
-            Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show()
-
+            makeReservationButton.setOnClickListener {
+                val intent = Intent(this, MakeReservationActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 }

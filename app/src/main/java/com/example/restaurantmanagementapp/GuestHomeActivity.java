@@ -31,6 +31,7 @@ public class GuestHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GuestHomeActivity.this, ReservationsActivity.class);
+                intent.putExtra("user_type", "guest");
                 startActivity(intent);
             }
         });

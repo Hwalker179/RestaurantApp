@@ -29,6 +29,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".GuestHomeActivity" />
         <activity android:name=".StaffHomeActivity" />
+        <activity android:name=".MakeReservationActivity" />
 
     </application>
 
