@@ -53,7 +53,7 @@
         android:layout_marginEnd="8dp"
         android:hint="Enter item name"
         android:inputType="textCapWords"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textColorHint="@android:color/darker_gray"
         app:layout_constraintEnd_toStartOf="@+id/btnAddItem"
         app:layout_constraintStart_toStartOf="parent"
